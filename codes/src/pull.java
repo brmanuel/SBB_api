@@ -1,16 +1,9 @@
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
-import com.sun.org.apache.bcel.internal.classfile.Field;
-import com.sun.xml.internal.ws.transport.http.WSHTTPConnection;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by emfuthal on 25/10/16.
@@ -18,9 +11,9 @@ import java.util.Scanner;
 public class pull {
 
     public static void main(String [] args) throws IOException {
-        sbb test = pullRequest("Schlieren");
-        for(int i = 0; i < test.stationboard.length; i++){
-            System.out.println(test.stationboard[i].to);
+        List<sbb.Stationboard> test = nextDeps("Schlieren", "S");
+        for(sbb.Stationboard a : test){
+            System.out.printf("from %10s to %10s Platform %d at %s \n", a.stop.station.name, a.to, a.stop.platform, a.stop.departure );
         }
     }
 
@@ -29,5 +22,24 @@ public class pull {
         URL url = new URL("http://transport.opendata.ch/v1/stationboard?station=" + depart + "&limit=10");
         sbb sbb1 = mapper.readValue(url, sbb.class);
         return sbb1;
+    }
+
+    public static sbb pullRequest(String depart, int limit) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        URL url = new URL("http://transport.opendata.ch/v1/stationboard?station=" + depart + "&limit=" + limit);
+        sbb sbb1 = mapper.readValue(url, sbb.class);
+        return sbb1;
+    }
+
+    public static List<sbb.Stationboard> nextDeps(String depart, String means) throws IOException {
+        int searchDepth = 100;
+        List<sbb.Stationboard> result = new LinkedList<sbb.Stationboard>();
+        sbb request = pullRequest(depart, searchDepth);
+        for(sbb.Stationboard a : request.stationboard) {
+            if (a.category.equals(means)) {
+                result.add(a);
+            }
+        }
+        return result;
     }
 }
