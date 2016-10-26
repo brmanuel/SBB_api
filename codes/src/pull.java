@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,9 +12,17 @@ import java.util.List;
 public class pull {
 
     public static void main(String [] args) throws IOException {
-        List<sbb.Stationboard> test = nextDeps("Schlieren", "S");
+        ObjectMapper mapper1 = new ObjectMapper();
+        URL url = new URL("http://transport.opendata.ch/v1/connections?from=Lausanne&to=Genève");
+        connection test = mapper1.readValue(url, connection.class);
+        for (connection.Station_w a : test.connections[0].sections[0].journey.passList)
+            System.out.println(a.station.name);
+    }
+
+    public static void printConnections(String departure, String means) throws IOException {
+        List<sbb.Stationboard> test = nextDeps(departure, means);
         for(sbb.Stationboard a : test){
-            System.out.printf("from %10s to %10s Platform %d at %s \n", a.stop.station.name, a.to, a.stop.platform, a.stop.departure );
+            System.out.printf("from %10s to %20s Platform %5s at %s \n", a.stop.station.name, a.to, a.stop.platform, a.toTime(a.stop.departure) );
         }
     }
 

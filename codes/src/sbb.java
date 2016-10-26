@@ -62,12 +62,12 @@ public final class sbb {
             public final String arrival;
             public final String departure;
             public final String delay;
-            public final int platform;
+            public final String platform;
             public final Prognosis prognosis;
             public final Location location;
 
             @JsonCreator
-            public Stop(@JsonProperty("station") Station station, @JsonProperty("arrival") String arrival, @JsonProperty("departure") String departure, @JsonProperty("delay") String delay, @JsonProperty("platform") int platform, @JsonProperty("prognosis") Prognosis prognosis, @JsonProperty("location") Location location){
+            public Stop(@JsonProperty("station") Station station, @JsonProperty("arrival") String arrival, @JsonProperty("departure") String departure, @JsonProperty("delay") String delay, @JsonProperty("platform") String platform, @JsonProperty("prognosis") Prognosis prognosis, @JsonProperty("location") Location location){
                 this.station = station;
                 this.arrival = arrival;
                 this.departure = departure;
@@ -83,12 +83,12 @@ public final class sbb {
             public final Station station;
             public final String arrival;
             public final String departure;
-            public final int platform;
+            public final String platform;
             public final Prognosis prognosis;
             public final Location location;
 
             @JsonCreator
-            public PassList(@JsonProperty("station") Station station, @JsonProperty("arrival") String arrival, @JsonProperty("departure") String departure, @JsonProperty("platform") int platform, @JsonProperty("prognosis") Prognosis prognosis, @JsonProperty("location") Location location){
+            public PassList(@JsonProperty("station") Station station, @JsonProperty("arrival") String arrival, @JsonProperty("departure") String departure, @JsonProperty("platform") String platform, @JsonProperty("prognosis") Prognosis prognosis, @JsonProperty("location") Location location){
                 this.station = station;
                 this.arrival = arrival;
                 this.departure = departure;
@@ -96,6 +96,10 @@ public final class sbb {
                 this.prognosis = prognosis;
                 this.location = location;
             }
+        }
+
+        public static String toTime(String unfTime){
+            return unfTime.substring(11, 16);
         }
     }
 
@@ -130,14 +134,14 @@ public final class sbb {
     }
 
     public static final class Prognosis {
-        public final int platform;
+        public final String platform;
         public final String arrival;
         public final String departure;
         public final int capacity1st;
         public final int capacity2nd;
 
         @JsonCreator
-        public Prognosis(@JsonProperty("platform") int platform, @JsonProperty("arrival") String arrival, @JsonProperty("departure") String departure, @JsonProperty("capacity1st") int capacity1st, @JsonProperty("capacity2nd") int capacity2nd){
+        public Prognosis(@JsonProperty("platform") String platform, @JsonProperty("arrival") String arrival, @JsonProperty("departure") String departure, @JsonProperty("capacity1st") int capacity1st, @JsonProperty("capacity2nd") int capacity2nd){
             this.platform = platform;
             this.arrival = arrival;
             this.departure = departure;
