@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by emfuthal on 26/10/16.
  */
+
+/*
+ * This class is used for requests of a connection from a specific location to a specific location.
+ */
 public final class connection {
         public final Connection connections[];
         public final Station from;

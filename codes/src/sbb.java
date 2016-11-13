@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by emfuthal on 25/10/16.
  */
 
+/*
+ * this class is used for requests concerning a station and its stationboard.
+ */
 public final class sbb {
     public final Station station;
     public final Stationboard stationboard[];
