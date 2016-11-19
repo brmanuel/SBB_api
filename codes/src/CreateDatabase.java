@@ -50,7 +50,7 @@ static class Entry{
 	}
 	
 	
-	// prohibit foreign destinations. how?
+	// prohibit foreign destinations. not sure how though?
 	public static void traverseTree(sbb.Station root) throws IOException{
 		Entry rootEntry = new Entry(root.name, root.coordinate.x, root.coordinate.y);
 		if (!data.contains(rootEntry)){
