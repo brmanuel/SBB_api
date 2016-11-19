@@ -8,7 +8,7 @@ public class Testing {
 	}
 	
 	public static void testStationQuery() throws IOException{
-		StationQuery test = new StationQuery("Schlieren");
+		StationQuery test = new StationQuery("Basel SBB");
 		for (sbb.Station s : test.StationList){
 			System.out.printf("%s ", s.name);
 		}
@@ -19,5 +19,4 @@ public class Testing {
 		StationFromName test = new StationFromName("Schlieren");
 		System.out.printf("%s, %f, %f \n", test.Station.name, test.Station.coordinate.x, test.Station.coordinate.y);
 	}
-
 }

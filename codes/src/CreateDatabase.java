@@ -20,6 +20,22 @@ static class Entry{
 		this.lon = lon;
 		this.lat = lat;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return (int) (1000000*(this.lon + this.lat));
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Entry))
+			return false;
+		else {
+			Entry ob = (Entry) obj;
+			return (this.lat == ob.lat && this.lon == ob.lon);
+		}
+	}
 }
 
 	public CreateDatabase(){}
@@ -34,17 +50,14 @@ static class Entry{
 	}
 	
 	
-	// not working traversal: Olten Tecknau Tecknau Tecknau Tecknau Tecknau Tecknau Tecknau 
+	// prohibit foreign destinations. how?
 	public static void traverseTree(sbb.Station root) throws IOException{
-		while(size < 100){
 		Entry rootEntry = new Entry(root.name, root.coordinate.x, root.coordinate.y);
 		if (!data.contains(rootEntry)){
 			data.add(rootEntry);
 			System.out.printf("%s ", rootEntry.name);
-			for (sbb.Station s : new StationQuery(root.name).StationList){
-				traverseTree(s);
-			}
-		}	
+			StationQuery query = new StationQuery(root.name);
+			for (sbb.Station s : query.StationList) traverseTree(s);
 		}
 	}
 	

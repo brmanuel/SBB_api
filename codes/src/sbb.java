@@ -42,13 +42,13 @@ public final class sbb {
         public final String name;
         public final String category;
         public final long categoryCode;
-        public final int number;
+        public final String number;
         public final String operator;
         public final String to;
         public final PassList passList[];
 
         @JsonCreator
-        public Stationboard(@JsonProperty("stop") Stop stop, @JsonProperty("name") String name, @JsonProperty("category") String category, @JsonProperty("categoryCode") long categoryCode, @JsonProperty("number") int number, @JsonProperty("operator") String operator, @JsonProperty("to") String to, @JsonProperty("passList") PassList[] passList){
+        public Stationboard(@JsonProperty("stop") Stop stop, @JsonProperty("name") String name, @JsonProperty("category") String category, @JsonProperty("categoryCode") long categoryCode, @JsonProperty("number") String number, @JsonProperty("operator") String operator, @JsonProperty("to") String to, @JsonProperty("passList") PassList[] passList){
             this.stop = stop;
             this.name = name;
             this.category = category;
